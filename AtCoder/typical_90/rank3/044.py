@@ -1,40 +1,39 @@
 
 
-N, q = map(int,input().split())
+n,q = map(int,input().split())
 a = list(map(int,input().split()))
-t = []
-x = []
-y = []
+
+
 shift = 0
 for i in range(q):
-    T,X,Y = map(int,input().split())
-    X-=1
-    Y-=1
-    t.append(T)
-    x.append(X)
-    y.append(Y)
-    shift1 = shift
-    shift2 = shift
+    t,x,y = map(int,input().split())
 
-    if X - shift1<0:
-        shift1 -= X
-        shift1 %= N
-        X = N-shift1
+    shift_1 = shift
+    shift_2 = shift
 
-    if Y - shift2 <0:
-        shift2 -= Y
-        shift2 %= N
-        Y = N-shift2
+    x-=1
+    y-=1
 
-    if T == 1:
-    
-
-        sub = a[X]
-        a[X] = a[Y] 
-        a[Y] = sub
-        
-    elif T==2:
-        shift+=1
-
+    if x-shift_1<0:
+        x =n - (shift_1-x)%n
+        if x ==n:
+            x= 0
     else:
-        print(a[X])
+        x-=shift_1
+    
+    if yqsd -shift_2 <0:
+        y =n - (shift_2-y)%n 
+        if y ==n:
+            y= 0
+    else:
+        y-=shift_2
+
+    if t==1:
+        sub = a[x]
+        a[x] = a[y]
+        a[y] = sub
+
+    elif t ==2:
+        shift+=1
+    else:
+        print(a[x])
