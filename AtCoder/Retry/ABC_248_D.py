@@ -1,22 +1,19 @@
-n,m,k = map(int,input().split())
+# https://atcoder.jp/contests/abc248/tasks/abc248_d
+from xml.etree.ElementTree import QName
 
 
-dp = [[0]*2502 for i in range(51)]
+n = int(input())
+a = list(map(int,input().split()))
+Q = int(input())
+pos = [[] for i in range(200001)]
 
-for i in range(1,m+1):
-    dp[0][i] = 1
+for i in range(n):
+    pos[a[i]].append(i+1)
 
-for i in range(1,n):
-    for j in range(1,k+1):
-        for p in range(1,m+1):
-            dp[i][j] += dp[i-1][j-p]%998244353
-            dp[i][j]%= 998244353
-ans = 0
-for i in range(k+1):
-    ans += dp[n-1][i]%998244353
-    ans%=998244353
-print(ans)
+import bisect
+for i in range(Q):
+    l,r,x = map(int,input().split())
+    sum = bisect.bisect(pos[x],r) - bisect.bisect(pos[x],l-1)
+    print(sum)
 
-
-
-
+    
