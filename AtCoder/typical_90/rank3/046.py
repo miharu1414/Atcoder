@@ -22,3 +22,4 @@ for i in range(46):
             ans += numa*numb*cnum
 
 print(ans)
+
