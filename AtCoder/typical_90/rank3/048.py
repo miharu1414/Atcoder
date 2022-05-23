@@ -1,3 +1,5 @@
+# https://atcoder.jp/contests/typical90/tasks/typical90_av
+
 n, k = map(int,input().split())
 a = []
 b = []
