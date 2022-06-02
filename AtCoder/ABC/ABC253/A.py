@@ -3,8 +3,6 @@ import statistics
 
 lst = [a,b,c]
 
-
-
 if b == statistics.median(lst):
     print("Yes")
 else:
