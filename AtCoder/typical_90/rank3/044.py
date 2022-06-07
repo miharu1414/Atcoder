@@ -21,7 +21,7 @@ for i in range(q):
     else:
         x-=shift_1
     
-    if yqsd -shift_2 <0:
+    if y -shift_2 <0:
         y =n - (shift_2-y)%n 
         if y ==n:
             y= 0
