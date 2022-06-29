@@ -65,7 +65,7 @@ def big(n,p):
         Graph[i+2].append(p[i])
         Graph[p[i]].append(i+2)
 
-
+ 
     answer = []
 
     room = [[] for _ in range(n+1)]
