@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 #include <atcoder/all>
+#include <time.h>
 
+
+clock_t start = clock();
 using namespace std;
 using ll = long long;
 using pii = pair<int, int>;
@@ -25,6 +28,14 @@ T lcm(T a, T b) { return a / gcd(a, b) * b; }
 
 
 int main() {
+     
 
+      // 何かの処理
 
+    clock_t end = clock();
+
+    const double time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000.0;
+    printf("time %lf[ms]\n", time);
+
+    return 0;
 }
