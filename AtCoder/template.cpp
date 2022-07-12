@@ -27,15 +27,33 @@ template <typename T>
 T lcm(T a, T b) { return a / gcd(a, b) * b; }
 
 
+int sum(vector<int> v){
+	int sum = 0;
+	for(int i = 0;i<v.size();i++) sum += v[i];
+	return sum;
+}
+double sum(vector<double> v){
+	double sum = 0;
+	for(int i = 0;i<v.size();i++)  sum += v[i];
+	return sum;
+}
+
+
+
+
+
+
+
+int d(int x,int y,int x1,int y1){
+	return (x-x1)*(x-x1)+(y-y1)*(y-y1);
+}
+
+
+
+
 int main() {
-     
 
-      // 何かの処理
+	
 
-    clock_t end = clock();
 
-    const double time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000.0;
-    printf("time %lf[ms]\n", time);
-
-    return 0;
 }

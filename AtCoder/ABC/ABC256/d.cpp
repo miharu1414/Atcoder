@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 #include <atcoder/all>
-#include <time.h>
 
-
-clock_t start = clock();
 using namespace std;
 using ll = long long;
 using pii = pair<int, int>;
@@ -28,14 +25,34 @@ T lcm(T a, T b) { return a / gcd(a, b) * b; }
 
 
 int main() {
-     
+    int n;
+    cin>>n;
+    vector<pair<int,int>> lr(n);
+    rep(i,n){
+        cin>>lr[i].first>>lr[i].second;
+    }
+    sort(all(lr));
+    rep(i,n) cout<<lr[i].first<<lr[i].second<<endl;
 
-      // 何かの処理
+    if(n ==1){
+        cout<<lr[0].first<<' '<<lr[0].second<<endl;
+        return 0;
+    }
 
-    clock_t end = clock();
+    int left,right, now_i, right_pos;
+    left = lr[0].first;
+    right = lr[0].second;
+    right_pos = 0;
+    now_i = 1;
 
-    const double time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000.0;
-    printf("time %lf[ms]\n", time);
+    while(1){
+        if (lr[now_i].first<= lr[right_pos].second){
+            if (lr[now_i].second>right){
+                right_pos = now_i;
+                right = lr[right_pos].second;
+            }
+            
+        }
+    }
 
-    return 0;
 }
