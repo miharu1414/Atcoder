@@ -1,36 +1,23 @@
-import sys
-sys.setrecursionlimit(10 ** 6)
-
 n,m,s,t = map(int,input().split())
+ab = [map(int,input().split()) for i in range(m)]
+a,b = [list(i) for i in zip(*ab)]
+
 G = [[]for i in range(n)]
+
 for i in range(m):
-    a,b = map(int,input().split())
-    G[a].append(b)
-
-from collections import deque
-
-d = deque()
-d.append(s)
-
-seen = [-1] * n
-pre  = [0] * n 
-while len(d):
-    now = d.popleft()
+    G[a[i]].append(b[i])
+visited = [0] *n
 
 
-    for next_v in G[now]:
-        if seen[next_v] != -1:
+def rec(v):
+    visited[v] = 1
+    for next_v in G[v]:
+        if visited[next_v]:
             continue
-        seen[next_v] = 1
-        pre[next_v] = now
-        d.append(next_v)
+        rec(next_v)
+rec(s)
+if visited[t] == 1:
+    print("Yes")
+else:
+    print("No") 
 
-
-v = t
-path = [v]
-while v != s:
-    v = pre[v]
-    path.append(v)
-
-ans = list(reversed(path))
-print(*ans)
