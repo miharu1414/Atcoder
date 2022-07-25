@@ -44,20 +44,22 @@ double sum(vector<double> v){
 
 
 int main() {
-	priority_queue<int, vector<int>, greater<int>> pq;
-	int n,k;
-	cin>>n>>k;
-	vec p(n);
-	rep(i,n) cin>>p[i];
-	rep(i,k){
-		pq.push(p[i]);
-	}
-	for(int i = k;i<n;i++){
 
-		cout<<pq.top()<<endl;
-		pq.push(p[i]);
-		pq.pop();
-	}
-	cout<<pq.top()<<endl;
+	ll n,x ; cin>>n>>x;
+    string s;
+    cin>>s;
+    for(int i = 0;i<n;i++){
+        if(s[i]=='U'){
+
+        }
+        else if(s[i]=='R'){
+
+        }
+        else{
+            
+        }
+
+    }
+
 
 }
