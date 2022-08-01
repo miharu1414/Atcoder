@@ -6,7 +6,7 @@ if n < 8:
 from bisect import bisect, bisect_right
 import math
 
-def sieve_eratosthenes(n = 1000000):
+def sieve_eratosthenes(n = 1000001):
     primes = [0, 1] * (n // 2 + 1)
     if n % 2 == 0:
         primes.pop()
@@ -24,11 +24,16 @@ for i in range(len(sosuu_01)):
         sosuu.append(i)
 ans = 0
 pair = 1
+pair_kuu = []
+pair_kuu.append(sosuu[0])
 while 1:
     if sosuu[pair]**3 > 2*n:
         break
-    pos = bisect_right(sosuu[:pair], n//sosuu[pair]**3)
+    pos = bisect_right(pair_kuu, n//sosuu[pair]**3)
 
     ans += pos
+    pair_kuu.append(sosuu[pair])
     pair +=1
+    if pair>=len(sosuu):
+        break
 print(ans)
