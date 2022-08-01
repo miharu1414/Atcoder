@@ -153,7 +153,6 @@ x,y,r = [list(i) for i in zip(*xyr)]
 
 
 
-
 uf = UnionFind(n)
 
 for i in range(n):
