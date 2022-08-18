@@ -10,7 +10,7 @@ try:
 except FileExistsError:
     print("フォルダが既にあります")
     import shutil
-    shutil.rmtree(new_dir_path)
+    # shutil.rmtree(new_dir_path)
     
 for i in range(5):
     path = new_dir_path+ "/" + chr(ord('a') + i) + ".py"
