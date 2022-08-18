@@ -44,6 +44,21 @@ double sum(vector<double> v){
 
 
 int main() {
+    long long n;
+    cin>>n;
+    ll ans = 0;
+    int flag = 0;
+    for(ll a = 1; a*a*a<=n;a++){
+        for(ll b = a;a*b<=n;b++){
+            ll now = n/(b*a);
+            if(now<b){
+                flag =  1;
+                break;
+            }
+            ans += now - b + 1;
+        }
 
+    }
+    cout<<ans<<endl;
 
 }
