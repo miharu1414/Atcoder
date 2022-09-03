@@ -18,7 +18,6 @@ sum = p+q+r
 def search(start,end):
     i = start
     x,y,z = 0,0,0
-
     while x < p:
         x += a[i]
         i+=1
