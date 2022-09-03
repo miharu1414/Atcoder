@@ -1,4 +1,6 @@
 import os
+import shutil
+
 
 file_name = input("フォルダ名を指定してください")
 if "ABC" in file_name:
@@ -12,8 +14,15 @@ except FileExistsError:
     import shutil
     # shutil.rmtree(new_dir_path)
     
-for i in range(5):
-    path = new_dir_path+ "/" + chr(ord('a') + i) + ".py"
+for i in range(6):
+    path = new_dir_path+ "/" + chr(ord('a') + i)
+    if i >= 3:
+        src = './AtCoder/template.cpp'
+        path = path + ".cpp"
+        shutil.copyfile(src,path)
+
+    else:
+        path += ".py"
     f = open(path, 'w')
     f.write('')  # 何も書き込まなくてファイルは作成されました
     f.close()

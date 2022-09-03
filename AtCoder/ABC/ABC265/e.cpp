@@ -2,8 +2,10 @@
 #include <atcoder/all>
 #include <time.h>
 
-using namespace atcoder;
+
+clock_t start = clock();
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 using pii = pair<int, int>;
 using Pll = pair<long long, long long>;
@@ -40,9 +42,47 @@ double sum(vector<double> v){
 
 
 
-
+using mint = modint998244353;
 
 int main() {
+    int n,m;
+    cin>>n>>m;
+    int a,b;
+    vector<pair<int,int>> dxy;
+    rep(i,3){
+        cin>>a>>b;
+        dxy.push_back({a,b});
+    }
+
+    set<pair<int,int>> S;
+    rep(i,m){
+        int x,y;
+        cin>>x>>y;
+        S.insert(make_pair(x,y));
+    }
+
+    map<pair<ll,ll>,mint> dp;
+    dp[{0,0}]= 1;
+    for(int i = 0;i<n;i++){
+        map<pair<ll,ll>,mint> new_dp;
+        for(auto [xy,val]:dp){
+            auto [x,y] = xy;
+            for(auto[dx,dy]:dxy){
+                if(S.find({x+dx,y+dy})==S.end()){
+                    new_dp[{x+dx,y+dy}]+=val;
+                }
+            }
+        }
+        swap(dp,new_dp);
+    }
+
+    mint ans = 0;
+    for(auto[xy,val]:dp){
+        ans += val;
+    }
+    cout<<ans.val()<<endl;
+    
+
 
 
 }
