@@ -65,39 +65,25 @@ long long Max(vector<long long> v){
 
 
 int main() {
-	int n,m;
-	cin>>n>>m;
-	vector<int> a(n);rep(i,n)cin>>a[i];
-	vector<ll> c(n,0);
-	Graph G(n);
-	rep(i,m){
-		int u,v;
-		cin>>u>>v;
-		G[u-1].emplace_back(v-1);
-		G[v-1].emplace_back(u-1);
-		c[u-1] += a[v-1];
-		c[v-1] += a[u-1];
-	}
-	priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq;
-	rep(i,n){
-		pq.push({c[i],i});
-	}
-	vector<bool> erased(n);
-	ll ans = 0;
-	while(!pq.empty()){
-		auto[cost,x] = pq.top();
-		pq.pop();
-		if(erased[x]) continue;
-		erased[x] = true;
-		ans = max(ans,cost);
-		for(auto y :G[x]){
-			if(erased[y]) continue;
-			c[y] -= a[x];
-			pq.push({c[y],y});
-		}
-	}
-	cout<<ans<<endl;
-	
+    int n,m;
+    cin>>n>>m;
+    Graph G(n,vector<int> (n,0));
+    rep(i,m){
+        int u,v;
+        cin>>u>>v;
+        u--;v--;
+        G[u][v] = 1;
+        G[v][u] = 1;
+    }
+    ll ans = 0;
+    for(int a = 0; a<n;a++){
+        for(int b = a+ 1;b<n;b++){
+            for(int c = b + 1;c<n;c++){
+                if(G[a][b] & G[b][c] & G[c][a]) ans++;
+            }
+        }
+    }
+    cout<<ans<<endl;
 
 
 }

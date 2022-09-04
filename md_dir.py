@@ -23,7 +23,7 @@ for i in range(6):
 
     else:
         path += ".py"
-    f = open(path, 'w')
-    f.write('')  # 何も書き込まなくてファイルは作成されました
-    f.close()
+        f = open(path, 'w')
+        f.write('')  # 何も書き込まなくてファイルは作成されました
+        f.close()
     print(path)
