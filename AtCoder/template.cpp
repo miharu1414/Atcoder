@@ -9,7 +9,7 @@ using pii = pair<int, int>;
 using Pll = pair<long long, long long>;
 using vec = vector<int>;
 using vecll = vector<long long>;
-using mat = vector<vector<int>>;
+using Graph = vector<vector<int>>;
 using matll = vector<vector<long long>>;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
 #define all(v) v.begin(), v.end()
@@ -63,6 +63,7 @@ long long Max(vector<long long> v){
 
 
 int main() {
-	
-	
+	int n,m;cin>>n>>m;
+	vector<int> a(n);rep(i,n) cin>>a[i];
+
 }
