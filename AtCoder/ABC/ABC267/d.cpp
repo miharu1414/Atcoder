@@ -25,16 +25,16 @@ T gcd(T a, T b) { return b ? gcd(b, a % b) : a; }
 template <typename T>
 T lcm(T a, T b) { return a / gcd(a, b) * b; }
 
-
-int sum(vector<int> v){
-	int sum = 0;
-	for(int i = 0;i<v.size();i++) sum += v[i];
-	return sum;
+template <typename T>
+long long sum(vector<T> v){
+	ll Sum = 0;
+	for(int i = 0;i<v.size();i++) Sum += v[i];
+	return Sum;
 }
 double sum(vector<double> v){
-	double sum = 0;
-	for(int i = 0;i<v.size();i++)  sum += v[i];
-	return sum;
+	double Sum = 0;
+	for(int i = 0;i<v.size();i++)  Sum += v[i];
+	return Sum;
 }
 
 
@@ -43,6 +43,18 @@ double sum(vector<double> v){
 
 
 int main() {
-
-
+	int n, m;
+	cin>>n>>m;
+	vector<ll> a(n);rep(i,n) cin>>a[i];
+	matll dp(n+1,vector<ll> (m+1));
+	dp[0][0] = 0;
+	dp[0][1] = -100000000000000LL;
+	for(int i = 1;i<=n;i++){
+		for(int j = 0;j<=m;j++){
+			if(j==0) dp[i][0] = 0;
+			else if(j>i) dp[i][j] = -100000000000000LL;
+			else dp[i][j] = max(dp[i-1][j],dp[i-1][j-1] + a[i-1]*j);
+		}
+	}	
+	cout<<dp[n][m]<<endl;
 }

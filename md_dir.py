@@ -13,7 +13,7 @@ except FileExistsError:
     print("フォルダが既にあります")
     import shutil
     # shutil.rmtree(new_dir_path)
-    
+    exit()
 for i in range(6):
     path = new_dir_path+ "/" + chr(ord('a') + i)
     if i >= 3:
