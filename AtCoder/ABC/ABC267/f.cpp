@@ -63,6 +63,5 @@ long long Max(vector<long long> v){
 
 
 int main() {
-	
-	
+
 }
