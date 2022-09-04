@@ -83,9 +83,5 @@ long long Max(vector<long long> v){
 
 
 int main() {
-	int n;
-	cin>>n;
-	vec a(n);
-	rep(i,n) cin>>a[i];
-	cout<<sum(a)<<Min(a)<<Max(a)<<min(a[1],a[0]);
+
 }
