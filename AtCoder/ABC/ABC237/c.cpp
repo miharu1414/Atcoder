@@ -64,40 +64,30 @@ long long Max(vector<long long> v){
 
 
 
-int main() {
-	int n,m;
-	cin>>n>>m;
-	vector<int> a(n);rep(i,n)cin>>a[i];
-	vector<ll> c(n,0);
-	Graph G(n);
-	rep(i,m){
-		int u,v;
-		cin>>u>>v;
-		G[u-1].emplace_back(v-1);
-		G[v-1].emplace_back(u-1);
-		c[u-1] += a[v-1];
-		c[v-1] += a[u-1];
-	}
-	priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq;
-	rep(i,n){
-		pq.push({c[i],i});
-	}
-	vector<bool> erased(n);
-	ll ans = 0;
-	while(!pq.empty()){
-		auto[cost,x] = pq.top();
-		pq.pop();
-		if(erased[x]) continue;
-		erased[x] = true;
-		ans = max(ans,cost);
-		for(auto y :G[x]){
-			if(erased[y]) continue;
-			c[y] -= a[x];
-			pq.push({c[y],y});
-		}
-	}
-	cout<<ans<<endl;
-	
+int main(){
+  string S, S_inv, T1, T1_inv, T2, T2_inv;
+  cin >> S;
+int N = S.size();
+  int idx = 0;
 
-
+  for(int i = N-1;i>0;i--){
+	if(S[i] == S[0]) idx = i;
+  }
+  if(N==1){
+	cout<<"Yes"<<endl;
+	return 0;
+  }
+	if(idx == 0 ){
+		cout<<"No"<<endl;
+		return 0;
+	}
+   string new_s;
+   new_s = S.substr(0,idx+1);
+	S = new_s;
+	string rev_s = "";
+	for(int i = new_s.size()-1;i>=0;i--){
+		rev_s += new_s[i];
+	}
+	if(rev_s == new_s) cout<<"Yes"<<endl;
+	else cout<<"No"<<endl;
 }

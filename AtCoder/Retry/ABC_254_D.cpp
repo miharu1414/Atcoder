@@ -65,39 +65,34 @@ long long Max(vector<long long> v){
 
 
 int main() {
-	int n,m;
-	cin>>n>>m;
-	vector<int> a(n);rep(i,n)cin>>a[i];
-	vector<ll> c(n,0);
-	Graph G(n);
-	rep(i,m){
-		int u,v;
-		cin>>u>>v;
-		G[u-1].emplace_back(v-1);
-		G[v-1].emplace_back(u-1);
-		c[u-1] += a[v-1];
-		c[v-1] += a[u-1];
-	}
-	priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq;
-	rep(i,n){
-		pq.push({c[i],i});
-	}
-	vector<bool> erased(n);
-	ll ans = 0;
-	while(!pq.empty()){
-		auto[cost,x] = pq.top();
-		pq.pop();
-		if(erased[x]) continue;
-		erased[x] = true;
-		ans = max(ans,cost);
-		for(auto y :G[x]){
-			if(erased[y]) continue;
-			c[y] -= a[x];
-			pq.push({c[y],y});
-		}
-	}
-	cout<<ans<<endl;
-	
+    int n,k;
+    cin>>n>>k;
+    map<int,int> ab;
+    rep(i,k){
+        int a,b;
+        cin>>a>>b;
+        ab[a-1] = b-1;
+    }
+    vector<vector<int>> dp(n+1,vector<int> (3));
+    rep(i,n){
+        if(i ==0){
+            if(ab.count(i)){
+                dp[i][ab[i]] = 1;
+            }
+            else{
+                rep(j,3) dp[i][j] = 1;
+            }
+            continue;
+        }
+        if(ab.count(i)){
+            rep(j,3) dp[i][ab[i]] += dp[i-1][j];
+            if(i>=2) dp[i][ab[i]] -= dp[i-2][ab[i]];
+        }
+        else{
+            rep()
+        }
+
+    }
 
 
 }

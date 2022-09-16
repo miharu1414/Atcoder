@@ -65,39 +65,22 @@ long long Max(vector<long long> v){
 
 
 int main() {
-	int n,m;
-	cin>>n>>m;
-	vector<int> a(n);rep(i,n)cin>>a[i];
-	vector<ll> c(n,0);
-	Graph G(n);
-	rep(i,m){
-		int u,v;
-		cin>>u>>v;
-		G[u-1].emplace_back(v-1);
-		G[v-1].emplace_back(u-1);
-		c[u-1] += a[v-1];
-		c[v-1] += a[u-1];
+	int n;
+	cin>>n;
+	vec a(n);
+	rep(i,n) cin>>a[i];
+	//min(a_i,a_j) = a_i = i && max(a_i,a_j) = a_j = jの場合
+	ll count = 0;
+	rep(i,n) if(i+1 == a[i]) count+=1;
+	ll ans = max(count*(count-1)/2,(ll)0);
+
+	ll count2 = 0;
+	//min(a_i,a_j) = a_j = i && max(a_i,a_j) = a_i = jの場合
+	for(int i = 0;i<n;i++){
+		int j = a[i] - 1;
+		if( j == i )continue;
+		if(a[j] == i + 1) count2 += 1;
 	}
-	priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq;
-	rep(i,n){
-		pq.push({c[i],i});
-	}
-	vector<bool> erased(n);
-	ll ans = 0;
-	while(!pq.empty()){
-		auto[cost,x] = pq.top();
-		pq.pop();
-		if(erased[x]) continue;
-		erased[x] = true;
-		ans = max(ans,cost);
-		for(auto y :G[x]){
-			if(erased[y]) continue;
-			c[y] -= a[x];
-			pq.push({c[y],y});
-		}
-	}
+	ans += count2/2;
 	cout<<ans<<endl;
-	
-
-
 }

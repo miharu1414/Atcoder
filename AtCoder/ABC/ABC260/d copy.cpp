@@ -30,100 +30,63 @@ T lcm(T *it, T b) { return *it / gcd(*it, b) * b; }
 
 
 
-//以下、素集合と木は同じものを表す
-class UnionFind{
-public:
-    vector<ll> parent; //parent[i]はiの親
-    vector<ll> siz; //素集合のサイズを表す配列(1で初期化)
-    map<ll,vector<ll>> group; //集合ごとに管理する(key:集合の代表元、value:集合の要素の配列)
-    ll n; //要素数
-
-    //コンストラクタ
-    UnionFind(ll n_):n(n_),parent(n_),siz(n_,1){ 
-        //全ての要素の根が自身であるとして初期化
-        for(ll i=0;i<n;i++){parent[i]=i;}
-    }
-
-    //データxの属する木の根を取得(経路圧縮も行う)
-    ll root(ll x){
-        if(parent[x]==x) return x;
-        return parent[x]=root(parent[x]);//代入式の値は代入した変数の値なので、経路圧縮できる
-    }
-
-    //xとyの木を併合
-    void unite(ll x,ll y){
-        ll rx=root(x);//xの根
-        ll ry=root(y);//yの根
-        if(rx==ry) return;//同じ木にある時
-        //小さい集合を大きい集合へと併合(ry→rxへ併合)
-        if(siz[rx]<siz[ry]) swap(rx,ry);
-        siz[rx]+=siz[ry];
-        parent[ry]=rx;//xとyが同じ木にない時はyの根ryをxの根rxにつける
-    }
-
-    //xとyが属する木が同じかを判定
-    bool same(ll x,ll y){
-        ll rx=root(x);
-        ll ry=root(y);
-        return rx==ry;
-    }
-
-    //xの素集合のサイズを取得
-    ll size(ll x){
-        return siz[root(x)];
-    }
-
-
-
-};
-
 
 int main() {
-    ll n,k;
-    cin>>n>>k;
-    vecll p(n);
-    rep(i,n){
-        int x;cin>>x;
-        p[i] = x-1;
-    }
-    set<int> s;
-    vecll ans(n,-1);
-    vecll pre(n);
-
+    int n,k;cin>>n>>k;
+    vector<int> p(n),parent(n+1),most_p(n+1),num(n+1);rep(i,n)  cin>>p[i];
+    int now;
+    set<int> Min;
+    now = p[0];
+    parent[now] = now;
+    most_p[now] = now;
+    Min.insert(now);
+    num[now] = 1;
+    vec ans(n+1,-1);
     if(k==1){
-        rep(i,n) cout<<i+1<<endl;
-        return 0;
+            rep(i,n) ans[p[i]] = i + 1;
+                for(int i = 1;i<n+1;i++) cout<<ans[i]<<endl;
+                return 0;
     }
-
-    UnionFind uf(n);
-    for (int i = 0;i<n;i++){
-        ll now = p[i];
-        auto it = s.lower_bound(now);
-
-        if(it == s.end()) s.insert(now);
-        
+    for(int i = 1;i<n;i++){
+        now = p[i];
+        if(Min.size()==0){
+            Min.insert(now);
+            num[now] = 1;
+            parent[now] = now;
+            most_p[now] = now;
+            continue;
+        }
+        auto  it = Min.lower_bound(now);
+        if(it == Min.end()){
+            Min.insert(now);
+            num[now] = 1;
+            parent[now] = now;
+            most_p[now] = now;
+        }
         else{
-            uf.unite(*it,now);
-            pre[now] = *it; 
-            s.erase(*it);
-            s.insert(now);
-        }
 
-        if(uf.size(now) == k){
-                s.erase(*it);
-                ans[now] = i;
-                for(ll j = 0;j<uf.size(now)-1;j++){
-                    ans[pre[now]] = i;
-                    now = pre[now];
+            int bef = *it;
+            Min.erase(bef);
+            parent[now] = bef;
+            most_p[now] = most_p[bef];
+            num[most_p[now]]++;
+
+            if(num[most_p[now]]==k){
+
+                int oya = parent[now];
+                while(oya != now){
+                    ans[now] = i+1;
+                    now = parent[now];
+                    oya = parent[now];
                 }
-
+                ans[now] = i+1;
+            }
+            else{
+                Min.insert(now);
+            }
         }
 
-    }   
-    rep(i,n){ 
-        if (ans[i]==-1) cout<<-1<<endl;
-        else         cout<<ans[i]+1<<endl;
     }
-
+    for(int i = 1;i<n+1;i++) cout<<ans[i]<<endl;
 
 }
