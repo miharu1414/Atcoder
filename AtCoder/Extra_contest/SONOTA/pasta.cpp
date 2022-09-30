@@ -1,3 +1,5 @@
+//https://atcoder.jp/contests/joi2012yo/tasks/joi2012yo_d
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 #include <time.h>
@@ -15,7 +17,7 @@ using mat = vector<vector<int>>;
 using matll = vector<vector<long long>>;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
 #define all(v) v.begin(), v.end()
-
+#define endl "\n"
 #define _GLIBCXX_DEBUG
 
 
@@ -62,35 +64,32 @@ long long Max(vector<long long> v){
 	return ans;}
 
 
-int send(int a,int b,int c,int d){
-	cout<<'?'<<' '<<a<<' '<<b<<' '<<c<<' '<<d<<endl;
-	int ans;
-	cin>>ans;
-	return ans;
+
+
+
+
+long long d(int x){
+	string s = to_string(x);
+	int size  = s.size();
+	int sum = 0;
+	rep(i,size) sum += int(s[i]-'0');
+	return sum + x;
 }
-
 int main() {
-	int n;
-	cin>>n;
-	int a,b;
-	a = 1,b=n+1;
-	while(b-a>1){
-		int mid = (b+a)/2;
-		int c = send(a,mid-1,1,n);
-		if(c==mid-a) a = mid;
-		else b = mid;
+	ll n;cin>>n;
 
-	}
-	int ansr = a;
-	a = 1,b=n+1;
-	while(b-a>1){
-		int mid = (b+a)/2;
-		int c = send(1,n,a,mid-1);
-		if(c==mid-a) a = mid;
-		else b = mid;
 
+
+	set<int> N_dig;
+	for(int i = n;i>0;i--){
+		if(i==n) N_dig.insert(i);
+		else{
+			if(N_dig.count(d(i))) N_dig.insert(i);
+		}
 	}
-	int ansl = a;
-	cout<<"! "<<ansr<<' '<<ansl<<endl;
-	
+	ll ans = 0;
+	rep(i,n){
+		if(N_dig.count(i+1)) ans += 1;
+	}
+	cout<<ans<<endl;
 }

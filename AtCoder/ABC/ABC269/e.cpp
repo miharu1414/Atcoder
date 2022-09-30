@@ -16,6 +16,7 @@ using matll = vector<vector<long long>>;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
 #define all(v) v.begin(), v.end()
 
+
 #define _GLIBCXX_DEBUG
 
 
@@ -62,35 +63,10 @@ long long Max(vector<long long> v){
 	return ans;}
 
 
-int send(int a,int b,int c,int d){
-	cout<<'?'<<' '<<a<<' '<<b<<' '<<c<<' '<<d<<endl;
-	int ans;
-	cin>>ans;
-	return ans;
-}
+
 
 int main() {
-	int n;
-	cin>>n;
-	int a,b;
-	a = 1,b=n+1;
-	while(b-a>1){
-		int mid = (b+a)/2;
-		int c = send(a,mid-1,1,n);
-		if(c==mid-a) a = mid;
-		else b = mid;
+	Graph G(1001,vector<int> (1001));
 
-	}
-	int ansr = a;
-	a = 1,b=n+1;
-	while(b-a>1){
-		int mid = (b+a)/2;
-		int c = send(1,n,a,mid-1);
-		if(c==mid-a) a = mid;
-		else b = mid;
 
-	}
-	int ansl = a;
-	cout<<"! "<<ansr<<' '<<ansl<<endl;
-	
 }
