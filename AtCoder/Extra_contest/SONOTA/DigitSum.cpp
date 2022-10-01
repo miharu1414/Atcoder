@@ -1,3 +1,5 @@
+//https://atcoder.jp/contests/joi2020yo2/tasks/joi2020_yo2_c
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 #include <time.h>
@@ -15,7 +17,7 @@ using mat = vector<vector<int>>;
 using matll = vector<vector<long long>>;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
 #define all(v) v.begin(), v.end()
-
+#define endl "\n"
 #define _GLIBCXX_DEBUG
 
 
@@ -62,35 +64,62 @@ long long Max(vector<long long> v){
 	return ans;}
 
 
-int send(int a,int b,int c,int d){
-	cout<<'?'<<' '<<a<<' '<<b<<' '<<c<<' '<<d<<endl;
-	int ans;
-	cin>>ans;
-	return ans;
-}
+
 
 int main() {
-	int n;
-	cin>>n;
-	int a,b;
-	a = 1,b=n+1;
-	while(b-a>1){
-		int mid = (b+a)/2;
-		int c = send(a,mid-1,1,n);
-		if(c==mid-a) a = mid;
-		else b = mid;
-
+	int n,k;
+	cin>>n>>k;
+	vector<int> a(n),b(n);
+	map<ll,ll> pasta;
+	rep(i,k){
+		cin>>a[i]>>b[i];
+		pasta[a[i]] = b[i]-1;
 	}
-	int ansr = a;
-	a = 1,b=n+1;
-	while(b-a>1){
-		int mid = (b+a)/2;
-		int c = send(1,n,a,mid-1);
-		if(c==mid-a) a = mid;
-		else b = mid;
+	int mod  = 10000;
 
+
+	matll dp(n+1,vector<ll> (3,0));
+	for(int i = 1;i<=n;i++){
+		if(i == 1){
+			if(pasta.count(i)){
+				dp[i][pasta[i]] = 1;
+			}
+			else{
+				rep(j,3) dp[i][j] = 1;
+			}
+		}
+
+		else if(i == 2){
+			if(pasta.count(i)){
+				rep(j,3) dp[i][pasta[i]] += dp[i-1][j];
+			}
+			else{
+				int sum  = 0;
+				rep(j,3) sum += dp[i-1][j] ;
+				rep(j,3) dp[i][j] = (dp[i][j] + sum)%mod;
+
+			}
+		}
+		else{
+			if(pasta.count(i)){
+					rep(j,3) dp[i][pasta[i]] += dp[i-1][j];
+					if(dp[i-1][pasta[i]]>0) dp[i][pasta[i]] -= dp[i-2][pasta[i]];
+					dp[i][pasta[i]] %= mod;
+				
+			}
+			else{
+				rep(j,3){
+					rep(k,3) dp[i][j] += dp[i-1][k];
+					if(dp[i-1][j]>0) dp[i][j] -= dp[i-2][j];
+					dp[i][j] %= mod;
+				}
+			}
+		}
+	
 	}
-	int ansl = a;
-	cout<<"! "<<ansr<<' '<<ansl<<endl;
+	ll ans = 0;
+	rep(j,3) ans  += dp[n][j];
+	ans%= mod;
+	cout<<ans<<endl;
 	
 }
