@@ -65,6 +65,46 @@ long long Max(vector<long long> v){
 
 
 int main() {
-	
+	int n;
+	cin>>n;
+	mat c(n,vector<int> (n));
+	rep(i,n)rep(j,n) cin>>c[i][j];
+	vector<int> b(n);
+	vector<int> dif(n-1,0);
+
+	for(int j = 0;j<n-1;j++){
+		dif[j] = c[0][j] - c[0][j+1];			
+	}
+	bool ok = true;
+
+	for(int i = 1;i<n;i++){
+		for(int j = 0;j<n-1;j++){
+			int d = c[i][j] - c[i][j+1];
+			if(d!=dif[j]) ok = false;
+		}
+	}
+	if(ok==false) cout<<"No"<<endl;
+	else{
+	for(int i = 0;i<n;i++){
+		int minRow = c[0][i];
+		for(int j = 0;j<n;j++){
+			minRow = min(minRow,c[j][i]);
+		}
+		b[i] = minRow;
+	}
+		vector<int> a(n);
+		rep(i,n){
+			a[i] = c[i][0] - b[0];
+			if(a[i]<0)  ok = false;
+		}
+		if(ok){
+			cout<<"Yes"<<endl;
+			rep(i,n) cout<<a[i]<<' ';
+			cout<<endl;
+			rep(i,n) cout<<b[i]<<' ';
+		}
+		else cout<<"No"<<endl;
+	}
+
 
 }

@@ -65,6 +65,34 @@ long long Max(vector<long long> v){
 
 
 int main() {
+	int n;
+	cin>>n;
+	vec a(n+1);
+
+	mat d(n+1);
+	for(int i = 1;i<n;i++){
+		for(int j = i;j<=n;j+=i){
+			if(i==j) continue;
+			d[j].push_back(i);
+		}
+	}
+	
+
+	for(int i = 1;i<=n;i++){
+		if(i==1){
+			a[i-1] = 1;
+			continue;
+		}
+		int possible = 1;
+		for(auto x:d[i]){
+			if(possible == a[x-1]) possible+=1;
+			else break;
+		}
+		a[i-1] = possible;
+	}
+ 	rep(i,n) cout<<a[i]<<' ';
+	cout<<endl;
+
 	
 
 }

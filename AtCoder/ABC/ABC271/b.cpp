@@ -65,6 +65,9 @@ long long Max(vector<long long> v){
 
 
 int main() {
+	int n,q;
+	cin>>n>>q;
+	vec l(n);
 	
 
 }

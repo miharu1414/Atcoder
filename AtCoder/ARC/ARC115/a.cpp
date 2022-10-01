@@ -65,6 +65,22 @@ long long Max(vector<long long> v){
 
 
 int main() {
-	
+	int n,m;
+	cin>>n>>m;
+	vector<string> s(n);
+	rep(i,n) cin>>s[i];
+
+	vec count(2);
+	rep(i,n) {
+		int cnt = 0;
+		rep(j,m) if(s[i][j]=='1') cnt++;
+		count[cnt%2]++;
+	}
+
+	ll ans = n*(n-1)/2;
+	ll a1 = count[0]*(count[0]-1)/2;
+	ll a2 = count[1]*(count[1]-1)/2;
+	cout<<ans-a1-a2<<endl;
+
 
 }

@@ -65,6 +65,23 @@ long long Max(vector<long long> v){
 
 
 int main() {
+	int n,k;
+	cin>>n>>k;
+	vector<int> a(k);
 
-
+	rep(i,k) cin>>a[i];
+	sort(all(a));
+	ll ans = 0;
+	ll left = n;
+	while(left>0){
+		auto it = upper_bound(all(a),left);
+		it--;
+		left -= *it;
+		ans += *it;
+		if (left == 0) break;
+		auto it2 = upper_bound(all(a),left);
+		it2--;
+		left -= *it2;
+	}
+	cout<<ans<<endl;
 }
