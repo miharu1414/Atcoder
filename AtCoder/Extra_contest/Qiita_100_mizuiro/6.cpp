@@ -70,6 +70,47 @@ int send(int a,int b,int c,int d){
 }
 
 int main() {
+	int n,m;
+	cin>>n>>m;
+	vector<int> k(m);
+	mat s(m);
+	vec p(m);
+	mat xy(m,vector<int> (n,0));
+
+	rep(i,m){
+		cin>>k[i];
+		rep(j,k[i]){
+			int x;
+			cin>>x;
+			s[i].push_back(x-1);
+			xy[i][x-1] = 1;
+		}
+	}
+	rep(i,m) cin>>p[i];
+
+
+	int ans = 0;
+	for (int bit = 0; bit < (1<<n); ++bit) {
+
+		int ok = 1;
+		vector<int> count(m,0);
+        for (int i = 0; i < n; ++i) {
+			rep(k,m){
+				if (bit & (1<<i)){ // 列挙に i が含まれるか
+					if (xy[k][i]==1) count[k]+=1;
+				}
+			}
+		}
+		
+		rep(k,m){
+			if ((count[k]%2)!=p[k])	ok = 0;
+		}
+		if(ok) ans++;
+
+	}
+	cout<<ans<<endl;
+
+
 
 	
 }
