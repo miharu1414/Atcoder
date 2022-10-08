@@ -69,28 +69,39 @@ int send(int a,int b,int c,int d){
 	return ans;
 }
 
-int main() {
-	int n;
-	cin>>n;
-	int a,b;
-	a = 1,b=n+1;
-	while(b-a>1){
-		int mid = (b+a)/2;
-		int c = send(a,mid-1,1,n);
-		if(c==mid-a) a = mid;
-		else b = mid;
+int main(void) {
+    int N, M;
+    cin >> N >> M;
+    vector<int> A(N, 0);
+    vector<int> B(N, 0);
+    for (int i=0; i<N; i++) {
+        cin >> A[i];
+    }
 
-	}
-	int ansr = a;
-	a = 1,b=n+1;
-	while(b-a>1){
-		int mid = (b+a)/2;
-		int c = send(1,n,a,mid-1);
-		if(c==mid-a) a = mid;
-		else b = mid;
+    // step 1
+    for (int i=0; i<M; i++) {
+        B[A[i]]++;
+    }
+    int ans = N;
+    for (int i=0; i<N; i++) {
+        if (B[i] == 0) {
+            ans = i;
+            break;
+        }
+    }
 
-	}
-	int ansl = a;
-	cout<<"! "<<ansr<<' '<<ansl<<endl;
+    // step 2
+    for (int i=0; i<M; i++) {
+        B[A[i]]--;
+        B[A[i+M]]++;
+        if (B[A[i]] == 0) {
+            ans = min(ans, A[i]);
+        }
+    }
+
+    cout << ans << endl;
+
+    return 0;
+
 	
 }

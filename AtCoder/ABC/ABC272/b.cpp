@@ -73,6 +73,6 @@ int main() {
 	int n,m;
 	cin>>n>>m;
 	vector<int> k(m);
-	mat 
+	mat  x(n)
 	
 }
