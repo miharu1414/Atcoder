@@ -72,6 +72,7 @@ int send(int a,int b,int c,int d){
 int main() {
 	int n,m;
 	cin>>n>>m;
-	
+	vector<int> k(m);
+	mat 
 	
 }
