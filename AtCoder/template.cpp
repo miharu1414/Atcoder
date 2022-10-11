@@ -61,15 +61,11 @@ long long Max(vector<long long> v){
 	for(int i = 0;i<v.size();i++) ans = max(ans,v[i]);
 	return ans;}
 
+void yesno(int x){cout<<(x==1?"yes":"no" )<<endl;}
+void YesNo(int x){cout<<(x==1?"Yes":"No" )<<endl;}
 
-int send(int a,int b,int c,int d){
-	cout<<'?'<<' '<<a<<' '<<b<<' '<<c<<' '<<d<<endl;
-	int ans;
-	cin>>ans;
-	return ans;
-}
 
 int main() {
 
-	
+
 }
