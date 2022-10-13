@@ -62,14 +62,13 @@ long long Max(vector<long long> v){
 	return ans;}
 
 
-int send(int a,int b,int c,int d){
-	cout<<'?'<<' '<<a<<' '<<b<<' '<<c<<' '<<d<<endl;
-	int ans;
-	cin>>ans;
-	return ans;
-}
 
 int main() {
+	int q;
+	cin>>q;
+	vec t(q),x(q);
+	rep(i,q) cin>>t[i]>>x[i];
+	
 
 	
 }
