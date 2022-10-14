@@ -64,7 +64,10 @@ long long Max(vector<long long> v){
 
 
 int main() {
-
+	int q;
+	cin>>q;
+	vec t(q),x(q);
+	rep(i,q) cin>>t[i]>>x[i];
 	
 
 	
