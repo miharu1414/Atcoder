@@ -1,0 +1,25 @@
+n = int(input())
+x,y = map(int,input().split())
+xn2,yn2 = map(int,input().split())
+import math 
+
+
+midx = (x + xn2)/2
+midy = (y + yn2)/2
+
+d = math.sqrt((x-xn2)**2 + (y-yn2)**2)/2
+a = 360/n
+
+genx = x -midx
+geny = y - midy
+
+
+
+sita = math.pi * 2/n
+dif_x  = math.cos(sita)*genx - math.sin(sita)*geny
+dif_y =  math.sin(sita)*genx + math.cos(sita)*geny
+new_x = midx+dif_x
+new_y = midy+dif_y
+print(new_x,new_y)
+
+
