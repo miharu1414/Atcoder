@@ -65,32 +65,46 @@ bkt = [0]*(n+1)
 new_befa = []
 befa = []
 
-new_befa.append(befa)
-ans = 1500010
 
 
-
+num = [0]*200001
 mul = MultiSet()
 for i in range(n+1):
     mul.add(i)
 for i in range(n):
     if a[i] >= 0 and a[i] <= n:
         mul.erase(a[i])
+        num[a[i]]+=1
 
     if a[i]<= n:
-        befa.append([a[i],i])
+        befa.append([a[i],i+1])
+    
+new_befa = [[]for i in range(m+1)]
+
+new_befa[0]=befa
+for i in range(m):
     
 
-for i in range(m):
-    efa = []
-    for x,y in new_befa[i]:
-        if x >= 0 and x<=n:
-            mul.add(x)
-        if a[y] + (y+1)*(i+1) <= n:
-            if a[y] + (y+1)*(i+1) >= 0:
-                mul.erase(a[y] + (y+1)*(i+1),1)
-            efa.append([a[y] + (y+1)*(i+1),y])
-    new_befa.append(efa)
+    for x, y in new_befa[i]:
+        new_x = x + (y)
+        if x>=0 and x<=n:
+            num[x]-=1
+            if num[x]==0:
+                mul.add(x)
+        
+        if new_x >= 0 and new_x <= n:
+            num[new_x]+=1
+            if num[new_x]==1:
+                mul.erase(new_x,1)
+        if new_x <= n:
+            new_befa[i+1].append([new_x,y])
+    
     print(mul.get_min())
+        
+            
+        
+        
+        
+        
 
         
