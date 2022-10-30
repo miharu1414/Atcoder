@@ -19,7 +19,7 @@ using matll = vector<vector<long long>>;
 #define _GLIBCXX_DEBUG
 
 
-constexpr int MOD = 1000000007;
+constexpr int MOD = 998244353 ;
 const long long INF = 1LL << 60;
 const int inf = 1<<30;
 template <typename T>
@@ -64,10 +64,39 @@ long long Max(vector<long long> v){
 void yesno(int x){cout<<(x==1?"yes":"no" )<<endl;}
 void YesNo(int x){cout<<(x==1?"Yes":"No" )<<endl;}
 
+using mint = modint998244353;
 
+
+
+// mod. m での a の逆元 a^{-1} を計算する
+long long modinv(long long a, long long m) {
+    long long b = m, u = 1, v = 0;
+    while (b) {
+        long long t = a / b;
+        a -= t * b; swap(a, b);
+        u -= t * v; swap(u, v);
+    }
+    u %= m;
+    if (u < 0) u += m;
+    return u;
+}
 int main() {
-	
-	
+	int n,m,k;
+	cin>>n>>m>>k;
+	ll sum = 0;
+	vector<vector<ll>> dp(k+1,vector<ll> (n+1,0));
+	dp[0][0] = 1;
+	for(int i = 0;i<k;i++){
+		for(int j = 0;j<n;j++){
+			for(int d = 1;d<=m;d++){
+				if (j+d<=n){
+					dp[i+1][j+d] += dp[i][j];
+				}
+				else if(j+d>n) dp[i+1][n-(j+d-n)] += dp[i][j];
+			}
+		}
+	}
 
-	
+	rep(i,n+1) sum+=dp[k][i];
+	cout<<dp[k][n] * modinv(sum,MOD)%MOD<<endl;
 }

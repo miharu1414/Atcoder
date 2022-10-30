@@ -66,8 +66,10 @@ void YesNo(int x){cout<<(x==1?"Yes":"No" )<<endl;}
 
 
 int main() {
-	
-	
 
+	int q;
+	cin>>q;
+	map<int,vec>;
+	
 	
 }

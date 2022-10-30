@@ -17,7 +17,7 @@ using matll = vector<vector<long long>>;
 #define all(v) v.begin(), v.end()
 
 #define _GLIBCXX_DEBUG
-
+clock_t start = clock();
 
 constexpr int MOD = 1000000007;
 const long long INF = 1LL << 60;
@@ -65,9 +65,29 @@ void yesno(int x){cout<<(x==1?"yes":"no" )<<endl;}
 void YesNo(int x){cout<<(x==1?"Yes":"No" )<<endl;}
 
 
-int main() {
-	
-	
+      // 何かの処理
 
+
+
+
+
+int main() {
+
+
+    clock_t now= clock();
+
+
+    
+    while(1){
+        now = clock();
+        double diff = (double)(now - start);
+
+        if(diff>4800){
+            break;
+            cout<<1<<endl;
+        }
+    }
+
+    
 	
 }
