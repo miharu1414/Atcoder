@@ -17,7 +17,7 @@ using matll = vector<vector<long long>>;
 #define all(v) v.begin(), v.end()
 
 #define _GLIBCXX_DEBUG
-clock_t start = clock();
+
 
 constexpr int MOD = 1000000007;
 const long long INF = 1LL << 60;
@@ -89,7 +89,7 @@ class Udrl{
 
 
 
-Udrl udrl[200];
+Udrl udrl[201];
 int n;
 
 bool possible(int x){
@@ -107,10 +107,10 @@ bool possible(int x){
         int r1 = udrl[i].right;
         int l1 = udrl[i].left;
 
-        if(u > u1 and d <= u1  and !(r < l1 or l > r1)) return false;
-        if(u > d1 and d <= d1 and !(r < l1 or l > r1)) return false;
-        if(r > l1 and l <= l1 and !(u < d1 or d > u1)) return false;
-        if(r > r1 and l <= r1 and !(u < d1 or d > u1)) return false;
+        if((max(l,l1)<min(r,r1)) and (max(u,u1)<min(d,d1))){
+            return false;
+        }
+        
     }
     return true;
     
@@ -122,61 +122,60 @@ int main() {
 
     srand( time(NULL) );
     cin>>n;
-    vector<int> X(n),Y(n),r(n);
+    vector<ll> X(n+1),Y(n+1),R(n+1);
     int x,y,nx,ny;
-    rep(i,n) cin>>X[i]>>Y[i]>>r[i];
+    rep(i,n) cin>>X[i]>>Y[i]>>R[i];
 
     //長方形の情報を格納
 
     rep(i,n){
         udrl[i].up = Y[i];
         udrl[i].down = Y[i] + 1;
-        udrl[i].right = X[i]+1;
+        udrl[i].right = X[i] + 1;
         udrl[i].left = X[i];
     }
 
-    int cnt = 0;
+    clock_t start = clock();
     clock_t now= clock();
     while(1){
         now = clock();
-        double diff = (double)(now - start);
+        double diff = (double)(now - start)/1000;
 
-        if(diff>4800){
+        if(diff>4700){
             break;
-            cout<<1<<endl;
         }
+     
         ll now = rand()%n;
-        int rd = rand()%4;
+        ll rd = rand()%4;
 
         if(rd==0){
-            if (udrl[now].up != 0){            
+            if (udrl[now].up > 0){            
                 udrl[now].up -= 1;
-                if(!possible(now)) udrl[now].up += 1;
-
+                if(!possible(now))  udrl[now].up += 1;
             }
 
 
 
         }
         else if(rd==1){
-            if(udrl[now].right != 9999){ 
+            if(udrl[now].right < 9999){ 
                 udrl[now].right += 1;
                 if(!possible(now)) udrl[now].right -= 1;
-
+        
             }
         }
         else if(rd == 2){
-            if(udrl[now].down != 9999){
+            if(udrl[now].down <9999){
                 udrl[now].down += 1;
                 if(!possible(now)) udrl[now].down -= 1;
-
+        
             }
         }
         else{
-            if(udrl[now].left!=0){
+            if(udrl[now].left> 0){
                 udrl[now].left -= 1;
                 if(!possible(now)) udrl[now].left += 1;
-
+  
             }
         }
 

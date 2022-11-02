@@ -65,29 +65,9 @@ void yesno(int x){cout<<(x==1?"yes":"no" )<<endl;}
 void YesNo(int x){cout<<(x==1?"Yes":"No" )<<endl;}
 
 
-      // 何かの処理
-
-
-
-
-
 int main() {
+	
+	
 
-
-    clock_t now= clock();
-
-
-    clock_t start = clock();
-    while(1){
-        now = clock();
-        double diff = (double)(now - start)/1000;
-
-        if(diff>4800){
-            break;
-            cout<<1<<endl;
-        }
-    }
-
-    
 	
 }
