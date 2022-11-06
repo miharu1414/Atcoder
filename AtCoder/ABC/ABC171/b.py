@@ -1,7 +1,10 @@
-n, k = map(int,input().split())
-p = list(map(int,input().split()))
-p.sort()
-ans = 0
-for i in range(k):
-    ans += p[i]
-print(ans)
+s = input()
+
+ans = []
+for i in range(len(s)):
+    ans.append(s[:i] + s[i:])
+for i in range(len(s)):
+    ans.append(s[i:]+s[:i])
+ans.sort()
+print(ans[0])
+print(ans[len(ans)-1])

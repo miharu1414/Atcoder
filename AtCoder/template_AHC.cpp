@@ -17,7 +17,7 @@ using matll = vector<vector<long long>>;
 #define all(v) v.begin(), v.end()
 
 #define _GLIBCXX_DEBUG
-clock_t start = clock();
+
 
 constexpr int MOD = 1000000007;
 const long long INF = 1LL << 60;
@@ -77,10 +77,10 @@ int main() {
     clock_t now= clock();
 
 
-    
+    clock_t start = clock();
     while(1){
         now = clock();
-        double diff = (double)(now - start);
+        double diff = (double)(now - start)/1000;
 
         if(diff>4800){
             break;
