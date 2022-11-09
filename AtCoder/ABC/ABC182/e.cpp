@@ -4,8 +4,6 @@
 
 using namespace atcoder;
 using namespace std;
-#define _GLIBCXX_DEBUG
-
 using ll = long long;
 using pii = pair<int, int>;
 using Pll = pair<long long, long long>;
@@ -16,27 +14,14 @@ using Graphll = vector<vector<long long>>;
 using mat = vector<vector<int>>;
 using matll = vector<vector<long long>>;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep2(i, m, n) for (ll i = (ll)(m); i < (ll)(n); i++)
-
-#define forall(i, v) for (auto& i : v)
-#define forallpair(i, j, v) for (auto& [i, j] : v)
-
 #define all(v) v.begin(), v.end()
-#define YesNo(a) ((a) ? "Yes" : "No")
-#define YESNO(a) ((a) ? "YES" : "NO")
-#define yesno(a) ((a) ? "yes" : "no")
 
-// using mod = modint1000000007;
-// using mod = modint998244353;
-#define __SPEED_UP__                  \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);
+#define _GLIBCXX_DEBUG
 
 
 constexpr int MOD = 1000000007;
 const long long INF = 1LL << 60;
 const int inf = 1<<30;
-
 template <typename T>
 T gcd(T a, T b) { return b ? gcd(b, a % b) : a; }
 template <typename T>
@@ -81,7 +66,7 @@ void YesNo(int x){cout<<(x==1?"Yes":"No" )<<endl;}
 
 
 int main() {
-	__SPEED_UP__
+	
 	
 
 	
