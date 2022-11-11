@@ -80,6 +80,20 @@ long long Max(vector<long long> v){
 
 int main() {
 	__SPEED_UP__
+	int n;
+	cin>>n;
+	vec x(n);rep(i,n)cin>>x[i];
+
+	int ans1 = 0,ans3 = 0;
+	double ans2 = 0;
+	rep(i,n){
+		ans1 += abs(x[i]);
+		ans2 += x[i]*x[i];
+		ans3 = max(ans3,abs(x[i]));
+	}
+	cout<<ans1<<endl;
+	cout<<fixed << setprecision(15)<<sqrt(ans2)<<endl;
+	cout<<ans3<<endl;
 	
 
 	

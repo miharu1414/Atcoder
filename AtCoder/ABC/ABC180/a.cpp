@@ -80,6 +80,9 @@ long long Max(vector<long long> v){
 
 int main() {
 	__SPEED_UP__
+	int n,a,b;
+	cin>>n>>a>>b;
+	cout<<n-a+b<<endl;
 	
 
 	
