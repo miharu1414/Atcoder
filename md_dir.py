@@ -16,14 +16,14 @@ except FileExistsError:
     exit()
 for i in range(6):
     path = new_dir_path+ "/" + chr(ord('a') + i)
-    if i >= 3:
+    if i >= 0:
         src = './AtCoder/template.cpp'
         path = path + ".cpp"
         shutil.copyfile(src,path)
 
-    else:
-        path += ".py"
-        f = open(path, 'w')
-        f.write('')  # 何も書き込まなくてファイルは作成されました
-        f.close()
+    
+    path += ".py"
+    f = open(path, 'w')
+    f.write('')  # 何も書き込まなくてファイルは作成されました
+    f.close()
     print(path)
