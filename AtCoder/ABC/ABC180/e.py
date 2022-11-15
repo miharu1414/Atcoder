@@ -15,4 +15,3 @@ ans = 2<<60
 bx,by,bz = x[0],y[0],z[0]
 for i in range(n-1):
     ans += abs(x[i]-bx) + abs(y[i])
-    
