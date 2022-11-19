@@ -18,12 +18,12 @@ for i in range(6):
     path = new_dir_path+ "/" + chr(ord('a') + i)
     if i >= 0:
         src = './AtCoder/template.cpp'
-        path = path + ".cpp"
-        shutil.copyfile(src,path)
+        path1 = path + ".cpp"
+        shutil.copyfile(src,path1)
 
     
-    path += ".py"
-    f = open(path, 'w')
+    path2 = path + ".py"
+    f = open(path2, 'w')
     f.write('')  # 何も書き込まなくてファイルは作成されました
     f.close()
     print(path)
