@@ -20,10 +20,17 @@ for i in range(len(s)):
 string = ''
 bef_j = 0
 before = len(t)
-for i in range(len(s),0,-1):
-    for j in range(before,0,-1):
-        if ans[i][j] == ans[i-1][j-1] + 1 and  ans[i][j] == ans[i-1][j] + 1 and  ans[i][j] == ans[i][j-1]+1:
-            string += s[i-1]
-            before = j-1
-            break
-print(string[::-1])
+i  = len(s)
+j = len(t)
+
+while i > 0 and j > 0:
+    if ans[i][j] == ans[i-1][j]:
+        i-=1
+    elif ans[i][j] ==ans[i][j-1]:
+        j-=1
+    else:
+        string = s[i-1] + string
+        i-=1
+        j-=1
+    
+print(string)
