@@ -1,62 +1,72 @@
-import sys
-sys.setrecursionlimit(10**6)
 
-n,m,k = map(int,input().split())
-uva = [map(int,input().split()) for i in range(m)]
-if k!=0:
+
+import heapq
+
+def dijkstra(edges, num_node):
+    """ 経路の表現
+            [終点, 辺の値]
+            A, B, C, D, ... → 0, 1, 2, ...とする """
+    node = [float('inf')] * num_node    #スタート地点以外の値は∞で初期化
+    node[0] = 0     #スタートは0で初期化
+
+    node_name = []
+    heapq.heappush(node_name, [0, 0])
+
+    while len(node_name) > 0:
+        #ヒープから取り出し
+        _, min_point = heapq.heappop(node_name)
+
+        #経路の要素を各変数に格納することで，視覚的に見やすくする
+        for factor in edges[min_point]:
+            goal = factor[0]   #終点
+            cost  = factor[1]   #コスト
+
+            #更新条件
+            if node[min_point] + cost < node[goal]:
+                node[goal] = node[min_point] + cost     #更新
+                #ヒープに登録
+                heapq.heappush(node_name, [node[min_point] + cost, goal])
+
+    return node
+
+def main():
+    n, m, k = map(int,input().split())
+    uva = [map(int,input().split()) for i in range(m)]
+    u,v,a = [list(i) for i in zip(*uva)]
     s = list(map(int,input().split()))
-    switch = set(s)
-else:
-    switch = [-1]
-
-u,v,a = [list(i) for i in zip(*uva)]
-G0 = [[] for i in range(200001)]
-G1 = [[] for i in range(200001)]
-for i in range(m):
-    if a[i] == 0:
-        G0[u[i]].append(v[i])
-        G0[v[i]].append(u[i])
-    else:
-        G1[u[i]].append(v[i])
-        G1[v[i]].append(u[i])        
-# 頂点 v を始点とした深さ優先探索
-
-dist = [0]*(200001)
-ANS = []
-def rec(v,  seen, now,before):
-    # 頂点 v を黒く塗る (= seen[v] を true に変える)
-    seen[v][now] = True
-    if v == n:
-        ANS.append(before)
-    if v in switch:
-        now = abs(now-1)
-        seen[v][now] = True
+    for i in range(m):
+        u[i] -= 1
+        v[i] -= 1
         
-    # v を出力する (改行を防ぐため、end 引数を使って命令している)
-    # G[v] に含まれる頂点 v2 について、
-    if now == 0:
-        for v2 in G0[v]:
-            # v2 がすでに黒く塗られているならば、スキップする
-            if seen[v2][now]: continue
-            dist[v2] = dist[v] + 1
-            # v2 始点で深さ優先探索を行う (関数を再帰させる)
-            rec(v2, seen,now,before+1)
+
+    num_node = 2*n+2
+    Edges = [[] for i in range(2*n+2)]
+    for i in range(m):
+        if a[i]==1:
+            Edges[u[i]].append([v[i],1])
+            Edges[v[i]].append([u[i],1])
+        else:
+            Edges[u[i]+n].append([v[i]+n,1])
+            Edges[v[i]+n].append([u[i]+n,1])
+            
+
+    for i in range(k):
+        Edges[s[i]-1].append([s[i]-1+n,0])
+        Edges[s[i]-1+n].append([s[i]-1,0])
+        
+            
+    opt_node = dijkstra(Edges, num_node)
+
+    
+    result = []
+    for i in range(len(opt_node)):
+        result.append(opt_node[i])
+
+    if min(result[n-1],result[2*n-1]) != float('inf'):
+        print(min(result[n-1],result[2*n-1]))
     else:
-        for v2 in G1[v]:
-            # v2 がすでに黒く塗られているならば、スキップする
-            if seen[v2][now]: continue
-            # v2 始点で深さ優先探索を行う (関数を再帰させる)
-            dist[v2] = dist[v] + 1
-            rec(v2, seen,now,before+1)        
-    return
-
-# main
-now = 1
-
-seen = [[0,0] for i in range(200001)]    # seen[v]：頂点 v が黒く塗られいているなら true, そうでないなら false
-# 頂点 0 を始点として深さ優先探索を開始する
-rec(1,  seen, now,0)
-if len(ANS) == 0:
-    print(-1)
-else:
-    print(min(ANS))
+        print(-1)
+        
+    
+if __name__ == '__main__':
+    main()
