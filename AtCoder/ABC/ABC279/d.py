@@ -1,24 +1,12 @@
 a, b  = map(int,input().split())
 
+def f(c):
+    return  b * c + a / ((c+1)**(1/2))
 
-import math
-def f(x):
-    return a / math.sqrt(x+1) + b * x 
-
-def binary_search(x,y):
-    left = 0
-    right = 10**18+1
-    
-    while left<right-1:
-        middle = (left + right) // 2
-        if f(left) > f(right):
-            left = middle 
-        elif f(left) == f(right):
-            left = middle -1
-        else:
-            right  = middle 
-    return left
-
-print(f(binary_search(a,b)))
-        
-        
+x = ((a/(2*b))**2)**(1/3)
+mina = 10**18
+x = int(x)
+for X in range(-10,10):
+    ans = f(max(0,x+X))
+    mina = min(mina,ans)
+print(mina)
