@@ -76,12 +76,18 @@ long long Max(vector<long long> v){
 	for(int i = 0;i<v.size();i++) ans = max(ans,v[i]);
 	return ans;}
 
-//using mint = modint998244353;
-using mint = modint1000000007;
+
 
 int main() {
 	__SPEED_UP__
 	
-
+	string s;
+	cin>>s;
+	int ans= 0;
+	rep(i,s.size()){
+		ans += (int)s[i]-48;
+	}
 	
+	if(ans%9==0) cout<<"Yes"<<endl;
+	else cout<<"No"<<endl;
 }
