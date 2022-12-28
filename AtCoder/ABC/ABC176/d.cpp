@@ -76,12 +76,76 @@ long long Max(vector<long long> v){
 	for(int i = 0;i<v.size();i++) ans = max(ans,v[i]);
 	return ans;}
 
-//using mint = modint998244353;
-using mint = modint1000000007;
+
+
+// マスを表すデータ構造
+using Node = pair<int,int>;
+
+// 四方向への移動を表すベクトル
+// 0: 下、1: 右、2: 上、3: 左
+vector<int> dx = {1, 0, -1, 0};
+vector<int> dy = {0, 1, 0, -1};
+
+vector<int> dx1 = {0,2,0,-2,1,-1,1,-1,2,2,2,2,-2,-2,-2,-2,1,-1,1,-1};
+vector<int> dy1 = {2,0,-2,0,1,1,-1,-1,1,-1,2,-2,1,-1,2,-2,2,2,-2,-2};
 
 int main() {
 	__SPEED_UP__
+	// 入力
+	int H, W, sy,sx,gy,gx;
+    cin >> H >> W >> sy >> sx >> gy >> gx;
+	sy--;
+	sx--;
+	gy--;
+	gx--;
+    vector<string> S(H);
+    for (int i = 0; i < H; ++i) cin >> S[i];
+    
+    // 各マス (x, y) が何手目に探索されたか
+    // -1 は「まだ探索されていない」ことを表す
+    vector<vector<int>> dist(H, vector<int>(W, -1));
+
+    // todo リストを表すキュー
+    queue<Node> que;
+
+    // マス (X0, Y0) を始点とする
+    dist[gy][gx] = 0;
+    que.push(Node(gy, gx));
+
+    // キューが空になるまで探索する
+    while (!que.empty()) {
+        // キューから頂点を取り出す
+        auto [y, x] = que.front();
+        que.pop();
+        
+        // マス (x, y) から 1 手で行けるマスを順に探索
+        for (int direction = 0; direction < 4; ++direction) {
+            // 隣接マス
+            int x2 = x + dx[direction];
+            int y2 = y + dy[direction];
+
+			if(W>x2 && x2>=0 && H>y2 && y2>=0 && S[y2][x2] =='.' && (dist[y2][x2] == -1 || dist[y2][x2] > dist[y][x] ) ){
+				dist[y2][x2] = dist[y][x] ;
+        		que.push(Node(y2, x2));
+			}
+        }
+
+		 // マス (x, y) から 1 手で行けるマスを順に探索
+        for (int direction = 0; direction < 20; ++direction) {
+            // 隣接マス
+            int x2 = x + dx1[direction];
+            int y2 = y + dy1[direction];
+
+			if(W>x2 && x2>=0 && H>y2 && y2>=0 && S[y2][x2] =='.' && (dist[y2][x2] == -1 || dist[y2][x2] > dist[y][x] + 1) ){
+				dist[y2][x2] = dist[y][x]+1 ;
+        		que.push(Node(y2, x2));
+			}
+        }
+    }
+
+    // マス (X1, Y1) の値を答える
+    cout << dist[sy][sx] << endl;
+}
+	
 	
 
-	
-}

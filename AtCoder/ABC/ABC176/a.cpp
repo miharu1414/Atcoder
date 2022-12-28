@@ -76,12 +76,14 @@ long long Max(vector<long long> v){
 	for(int i = 0;i<v.size();i++) ans = max(ans,v[i]);
 	return ans;}
 
-//using mint = modint998244353;
-using mint = modint1000000007;
+
 
 int main() {
 	__SPEED_UP__
 	
-
-	
+	int n,x,t;
+	cin>>n>>x>>t;
+	int ans = (n+x-1)/x;
+	cout<<ans*t<<endl;
+		
 }

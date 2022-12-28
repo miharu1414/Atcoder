@@ -77,6 +77,8 @@ long long Max(vector<long long> v){
 	return ans;}
 
 
+//using mint = modint998244353;
+using mint = modint1000000007;
 
 int main() {
 	__SPEED_UP__

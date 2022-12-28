@@ -76,12 +76,43 @@ long long Max(vector<long long> v){
 	for(int i = 0;i<v.size();i++) ans = max(ans,v[i]);
 	return ans;}
 
-//using mint = modint998244353;
-using mint = modint1000000007;
+
 
 int main() {
 	__SPEED_UP__
-	
+    int n,m;
+    cin>>n>>m;
+    vector<int> a(m);
+    rep(i,m){
+        cin>>a[i];
+        a[i]--;
+    }
+
+    vector<int> b(m);
+
+
+    {
+        int now = 0;
+        rep(i,m){
+
+            b[i] = now;
+            if(a[i] == now ) now++;
+            else if(a[i] + 1==now) now--;
+
+
+        }
+    }
+
+    vector<int> back_b(n);
+    rep(i,n) back_b[i] = i;
+    vector<int> ans(m);
+    for(int i = m-1;i>=0;i--){
+        ans[i] = back_b[b[i]];
+        swap(back_b[a[i]],back_b[a[i]+1]);
+    }
+    rep(i,m) cout<<ans[i]+1<<endl;
+
+
 
 	
 }

@@ -76,12 +76,26 @@ long long Max(vector<long long> v){
 	for(int i = 0;i<v.size();i++) ans = max(ans,v[i]);
 	return ans;}
 
-//using mint = modint998244353;
-using mint = modint1000000007;
+double dis(double a,double b,double c, double d){
+	return sqrt((a-c)*(a-c)+(b-d)*(b-d));
+}
 
 int main() {
 	__SPEED_UP__
+	int n ;
+	cin>>n;
+	double ans = 0;
+	vector<double> x(n),y(n);
+	rep(i,n){
+		cin>>x[i]>>y[i];
+	}
+	rep(i,n){
+		rep(j,n){
+			ans = max(ans,dis(x[i],y[i],x[j],y[j]));
+		}
+	}
 	
+	cout << fixed << setprecision(10)<<ans<<endl;
 
 	
 }
