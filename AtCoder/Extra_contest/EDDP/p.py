@@ -1,45 +1,45 @@
-# スタックオーバーフローを防ぐ
-import sys
-sys.setrecursionlimit(10 ** 6)
-
 n = int(input())
-x,y = [],[]
-G = [[]for i in range(n)]
+if n ==1:
+    print(2)
+    exit()
+xy = [map(int,input().split()) for i in range(n-1)]
+x,y = [list(i) for i in zip(*xy)]
+
+dp = [[0,0] for i in range(n+1)]
+G = [[] for i in range(n+1)]
+
 for i in range(n-1):
-    a,b = map(int,input().split())
-    a-=1
-    b-=1
-    G[a].append(b)
-    G[b].append(a)
+    G[x[i]].append(y[i])
+    G[y[i]].append(x[i])
 
-start = 0
-for i in range(n):
-    if len(G[i]) == 1:
-        start=i
-        break
-
-seen = [0]*n
-
-dp = [[0,0]for i in range(n)] 
-def dfs(v,p):
-    seen[v] = 1
-    flag = 1
-    white,black = 1,1
-    for nv in G[v]:
-        if seen[nv]==1 or nv == p:
-            continue
-        
-        w,b = dfs(nv,v)
-        flag = 0
-        white *= (w+b)
-        black *= w
+is_seen = [0]*(n+1)
+def dfs(v):
+    
+    is_seen[v] = 1
+    flag=  1
+    black = 1
+    white = 0
+    for next_v in G[v]:
+        if is_seen[next_v] == 0:
+            flag = 0
+            b,w = dfs(next_v)
+            
+            black *= w
+            white += w + b
     if flag:
-        dp[v] = [1,1]
+        black = 1
+        white = 1
+    dp[v][0] = black
+    dp[v][1] = white
+    print(black,white)
+    return black,white
+start = 0
+for i in range(1,n+1):
+    if len(G[i]) == 1:
+        start = i
+        break
+dfs(start)
+print(sum(dp[start]))
+            
 
-    else:
-        dp[v][0] = white
-        dp[v][1] = black
-
-    return dp[v]
-
-print(sum(dfs(start,-1)))
+    
