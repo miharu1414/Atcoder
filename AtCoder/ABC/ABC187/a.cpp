@@ -43,11 +43,11 @@ template <typename T>
 T lcm(T a, T b) { return a / gcd(a, b) * b; }
 
 template <typename T>
-long long Sum(vector<T> v){
+long long sum(vector<T> v){
 	ll Sum = 0;
 	for(int i = 0;i<v.size();i++) Sum += v[i];
 	return Sum;}
-double Sum(vector<double> v){
+double sum(vector<double> v){
 	double Sum = 0;
 	for(int i = 0;i<v.size();i++)  Sum += v[i];
 	return Sum;}
