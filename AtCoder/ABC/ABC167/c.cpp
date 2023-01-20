@@ -25,8 +25,7 @@ using matll = vector<vector<long long>>;
 #define YesNo(a) ((a) ? "Yes" : "No")
 #define YESNO(a) ((a) ? "YES" : "NO")
 #define yesno(a) ((a) ? "yes" : "no")
-#define INF 1<<60
-#define inf 1<<30
+
 // using mod = modint1000000007;
 // using mod = modint998244353;
 #define __SPEED_UP__                  \
@@ -82,7 +81,38 @@ using mint = modint1000000007;
 
 int main() {
 	__SPEED_UP__
-	
+	int n,m,x;
+	cin>>n>>m>>x;
+	vector<int> c(n);
+	mat a(n,vector<int> (m));
+	rep(i,n){
+		cin>>c[i];
+		rep(j,m){
+			cin>>a[i][j];
+		}
+	}
+	int ans =1<<30;
 
-	
+	for (int bit = 0; bit < (1<<n); ++bit) {
+        vector<int> score_m(m,0);
+		int flag =1, cost = 0;
+        for (int i = 0; i < n; ++i) {
+            if (bit & (1<<i)) { // 列挙に i が含まれるか
+                rep(k,m){
+					score_m[k] += a[i][k];
+				}
+				cost += c[i];
+            }
+		}
+		rep(i,m){
+			if(score_m[i]<x){
+				flag = 0;
+				break;
+			}
+		}
+		if (flag) ans = min(ans,cost);
+    }
+	if (ans == 1<<30) cout<<-1<<endl;
+	else cout<< (ans)<<endl;
+		
 }

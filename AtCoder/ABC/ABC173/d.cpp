@@ -25,8 +25,7 @@ using matll = vector<vector<long long>>;
 #define YesNo(a) ((a) ? "Yes" : "No")
 #define YESNO(a) ((a) ? "YES" : "NO")
 #define yesno(a) ((a) ? "yes" : "no")
-#define INF 1<<60
-#define inf 1<<30
+
 // using mod = modint1000000007;
 // using mod = modint998244353;
 #define __SPEED_UP__                  \
