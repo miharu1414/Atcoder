@@ -34,7 +34,7 @@ using matll = vector<vector<long long>>;
     cin.tie(nullptr);
 
 
-int MOD = 1000000007;
+constexpr int MOD = 1000000007;
 
 
 template <typename T>

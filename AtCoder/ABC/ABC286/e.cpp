@@ -34,7 +34,7 @@ using matll = vector<vector<long long>>;
     cin.tie(nullptr);
 
 
-int MOD = 1000000007;
+
 
 
 template <typename T>
@@ -79,9 +79,58 @@ long long Max(vector<long long> v){
 //using mint = modint998244353;
 using mint = modint1000000007;
 
-int main() {
-	__SPEED_UP__
-	
+/* warshall_floyd(dist)
+    入力：初期化した dist
+    計算量：O(|V|^3)
+    副作用：dis[i][j]にiからjへの最短路のコストを格納
+*/
+void warshall_floyd(vector<vector<long long>> &dist,vector<vector<long long>> &score) {
+    int V = dist.size();
+    for (int k = 0; k < V; k++) {
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+				if(dist[i][j]>dist[i][k] + dist[k][j]){
+					dist[i][j] =dist[i][k] + dist[k][j];
+					score[i][j] =score[i][k] + score[k][j];
+				}
+				if((dist[i][j]==dist[i][k] + dist[k][j]) && (score[i][j] <score[i][k] + score[k][j])){
+					score[i][j] =score[i][k] + score[k][j];
+				}
+                
+            }
+        }
+    }
+}
 
+int main() {
+	int n;
+	cin>>n;
+	vector<ll> a(n);
+	rep(i,n) cin>>a[i];
+	vector<string> s(n);
+	rep(i,n) cin>>s[i];
+	int q;
+	cin>>q;
+	vector<ll> u(q),v(q);
+	rep(i,q) cin>>u[i]>>v[i];
+     // 頂点数
 	
+vector<vector<long long>> dist (n,vector<long long> (n,1<<30));
+vector<vector<long long>> score (n,vector<long long> (n,-1));
+    // 更新
+    // 出力
+	for (int i =  0;i<n;i++){
+		rep(j,n){
+			if(s[i][j] =='Y'){
+				dist[i][j] = 1;
+				score[i][j] = a[j];
+		}
+	}
+	}
+    warshall_floyd(dist,score);  
+	rep(i,q){
+		if (dist[u[i]-1][v[i]-1]==1<<30) cout<<"Impossible"<<endl;
+		else cout<<dist[u[i]-1][v[i]-1]<<' '<<a[u[i]-1]+score[u[i]-1][v[i]-1]<<endl;
+	}
+
 }

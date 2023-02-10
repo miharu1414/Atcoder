@@ -34,8 +34,9 @@ using matll = vector<vector<long long>>;
     cin.tie(nullptr);
 
 
-int MOD = 1000000007;
-
+constexpr int MOD = 1000000007;
+const long long INF = 1LL << 60;
+const int inf = 1<<30;
 
 template <typename T>
 T gcd(T a, T b) { return b ? gcd(b, a % b) : a; }
