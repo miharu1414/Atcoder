@@ -115,10 +115,25 @@ struct Solver {
 		N(N),source_pos(source_pos), house_pos(house_pos), C(C), field(N,C) {
 
 	}
-
+	int dif(Pos source_pos){
+		return abs(abs(source_pos.x - N/2) + abs(source_pos.y - N/2));
+	}
 	void solve(){
+		int i = 0, mini = 0;
+		int mind = inf;
+		for (Pos source: source_pos){
+			if(mind > dif(source)){
+				mind = dif(source);
+				mind = i;
+			}
+			i+=1;
+		}
+		Pos mid;
+		mid.x = N/2;
+		mid.y = N/2;
+		move(source_pos[mini], mid);
 		for (Pos house: house_pos){
-			move(house, source_pos[0]);
+			move(house, mid);
 		}
 		        // should receive Response::finish and exit before entering here
         assert(false);
@@ -153,7 +168,7 @@ struct Solver {
 
     void destruct(int y, int x) {
         // excavate (y, x) with fixed power until destruction
-        const int power = 250;
+        const int power = 1500;
         while (!field.is_broken[y][x]) {
             Response result = field.query(y, x, power);
             if (result == Response::finish) {
@@ -168,7 +183,19 @@ struct Solver {
 };
 int main() {
 
+    int N, W, K, C;
+    cin >> N >> W >> K >> C;
+    vector<Pos> source_pos(W);
+    vector<Pos> house_pos(K);
+    for (int i = 0; i < W; i++) {
+        cin >> source_pos[i].y >> source_pos[i].x;
+    }
+    for (int i = 0; i < K; i++) {
+        cin >> house_pos[i].y >> house_pos[i].x;
+    }
 
+    Solver solver(N, source_pos, house_pos, C);
+    solver.solve();
     clock_t now= clock();
 
 
