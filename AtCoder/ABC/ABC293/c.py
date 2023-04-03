@@ -2,30 +2,6 @@ import time
 from itertools import permutations
 from collections import Counter
 
-def f2(data):
-    n = len(data)
-    result = []
-    cnt = Counter(data)
-    keys = cnt.keys()
-
-    def isinvalid(x):
-        cnt2 = Counter(x)
-        for k, v in cnt.items():
-            if cnt2.get(k, 0) > v:
-                return True
-        else:
-            return False
-
-    def r(x, i=0):
-        if isinvalid(x):
-            return 
-        if i == n:
-            result.append(x)
-        else:
-            for k in keys:
-                r([*x, k], i=i+1)
-    r([])
-    return result
 
 def f3(data):
     n = len(data)
