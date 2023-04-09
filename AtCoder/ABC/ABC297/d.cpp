@@ -80,8 +80,27 @@ long long Max(vector<long long> v){
 using mint = modint1000000007;
 
 int main() {
-	__SPEED_UP__
-	
-
-	
+    ll a, b;
+    cin >> a >> b;
+    ll a1 = max(a, b);
+    ll b1 = min(a, b);
+	a = a1;
+	b = b1;
+    if (a == b) {
+        cout << 0 << endl;
+        return 0;
+    }
+    ll first = a / b;
+    a %= b;
+    ll second = 0;
+    while (a != b) {
+        if (a > b) {
+            a -= b;
+        } else {
+            b -= a;
+        }
+        second++;
+    }
+    cout << first + second << endl;
+    return 0;
 }
