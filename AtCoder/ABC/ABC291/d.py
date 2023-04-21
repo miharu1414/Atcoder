@@ -1,31 +1,25 @@
-def cmb(n, r, mod):
-    if ( r<0 or r>n ):
-        return 0
-    r = min(r, n-r)
-    return g1[n] * g2[r] * g2[n-r] % mod
-
-mod =  998244353 #出力の制限
-N = 10**6
-g1 = [1, 1] # 元テーブル
-g2 = [1, 1] #逆元テーブル
-inverse = [0, 1] #逆元テーブル計算用テーブル
-
-for i in range( 2, N + 1 ):
-    g1.append( ( g1[-1] * i ) % mod )
-    inverse.append( ( -inverse[mod % i] * (mod//i) ) % mod )
-    g2.append( (g2[-1] * inverse[-1]) % mod )
-
-
-
-
 n = int(input())
 ab = [map(int,input().split()) for i in range(n)]
 a,b = [list(i) for i in zip(*ab)]
 
-valid = set()
-valid_n = dict()
-ans = 1
-Mod = 998244353 
-pare = dict()
-skip = set()
-
+dp = [[0,0] for i in range(n)]
+MOD = 998244353 
+for i in range(n):
+    if i == 0:
+        dp[i][0] = 1
+        dp[i][1] = 1
+        continue
+    for j in range(2):
+        if j%2:
+            if a[i] != a[i-1]:
+                dp[i][j] += dp[i-1][j]
+            if a[i] != b[i-1]:
+                dp[i][j] += dp[i-1][~j]
+        else:
+            if b[i] != a[i-1]:
+                dp[i][j] += dp[i-1][~j]
+            if b[i] != b[i-1]:
+                dp[i][j] += dp[i-1][j]
+        dp[i][j] %= MOD
+print(sum(dp[n-1])%MOD)
+        
