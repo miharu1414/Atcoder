@@ -48,11 +48,16 @@ for i in range(k):
     if d[i]!=0:
         white.add(p[i])
     # k 手目の探索をする
+    ok = 1
+    if d[i]!=0:
+        ok = 0
     for k in range(1, d[i]+1):
         # k-1 手目に探索された各頂点 v に対して
         for v in nodes[k - 1]:
             # 頂点 v から 1 手で行ける頂点 next_v を探索
             for next_v in G[v]:
+                if k == d[i]:
+                    ok = 1
                 # 頂点 next_v が探索済みであれば何もしない
                 if dist[next_v] != -1:
                     continue
@@ -61,6 +66,9 @@ for i in range(k):
                 # 頂点 next_v を探索する
                 dist[next_v] = dist[v] + 1
                 nodes[k].append(next_v)
+    if ok == 0:
+        print("No")
+        exit()
     for j in nodes[d[i]]:
         black[i].append(j)
 
