@@ -1,87 +1,115 @@
-#include <bits/stdc++.h>
-#include <atcoder/all>
-#include <time.h>
-
-using namespace atcoder;
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <algorithm>
+#include <climits>
 using namespace std;
-#define _GLIBCXX_DEBUG
 
-using ll = long long;
-using pii = pair<int, int>;
-using Pll = pair<long long, long long>;
-using vec = vector<int>;
-using vecll = vector<long long>;
-using Graph = vector<vector<int>>;
-using Graphll = vector<vector<long long>>;
-using mat = vector<vector<int>>;
-using matll = vector<vector<long long>>;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep2(i, m, n) for (ll i = (ll)(m); i < (ll)(n); i++)
+int dx[] = {1, 0, -1, 0};
+int dy[] = {0, 1, 0, -1};
 
-#define forall(i, v) for (auto& i : v)
-#define forallpair(i, j, v) for (auto& [i, j] : v)
+int bit_count(int number) {
+    int count = 0;
+    while (number) {
+        count += number & 1;
+        number >>= 1;
+    }
+    return count;
+}
 
-#define all(v) v.begin(), v.end()
-#define YesNo(a) ((a) ? "Yes" : "No")
-#define YESNO(a) ((a) ? "YES" : "NO")
-#define yesno(a) ((a) ? "yes" : "no")
-#define INF 1<<60
-#define inf 1<<30
-// using mod = modint1000000007;
-// using mod = modint998244353;
-#define __SPEED_UP__                  \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);
+vector<vector<int>> bfs(const vector<string>& a, int sx, int sy) {
+    int h = a.size();
+    int w = a[0].size();
+    vector<vector<int>> dist(h, vector<int>(w, -1));
+    deque<pair<int, int>> d;
 
+    dist[sx][sy] = 0;
+    d.push_back({sx, sy});
 
-int MOD = 1000000007;
+    while (!d.empty()) {
+        int x = d.front().first;
+        int y = d.front().second;
+        d.pop_front();
 
+        for (int i = 0; i < 4; ++i) {
+            int x2 = x + dx[i];
+            int y2 = y + dy[i];
+            if (x2 < 0 || x2 >= h || y2 < 0 || y2 >= w) {
+                continue;
+            }
+            if (a[x2][y2] == '#') {
+                continue;
+            }
+            if (dist[x2][y2] == -1) {
+                dist[x2][y2] = dist[x][y] + 1;
+                d.push_back({x2, y2});
+            }
+        }
+    }
 
-template <typename T>
-T gcd(T a, T b) { return b ? gcd(b, a % b) : a; }
-template <typename T>
-T lcm(T a, T b) { return a / gcd(a, b) * b; }
+    return dist;
+}
 
-template <typename T>
-long long sum(vector<T> v){
-	ll Sum = 0;
-	for(int i = 0;i<v.size();i++) Sum += v[i];
-	return Sum;}
-double sum(vector<double> v){
-	double Sum = 0;
-	for(int i = 0;i<v.size();i++)  Sum += v[i];
-	return Sum;}
-double Min(vector<double> v){
-	double ans = v[0];
-	for(int i = 0;i<v.size();i++) ans = min(ans,v[i]);
-	return ans;}
-double Max(vector<double> v){
-	double ans = v[0];
-	for(int i = 0;i<v.size();i++) ans = max(ans,v[i]);
-	return ans;}
-int Min(vector<int> v){
-	int ans = v[0];
-	for(int i = 0;i<v.size();i++) ans = min(ans,v[i]);
-	return ans;}
-int Max(vector<int> v){
-	int ans = v[0];
-	for(int i = 0;i<v.size();i++) ans = max(ans,v[i]);
-	return ans;}
-long long Min(vector<long long> v){
-	long long ans = v[0];
-	for(int i = 0;i<v.size();i++) ans = min(ans,v[i]);
-	return ans;}
-long long Max(vector<long long> v){
-	long long ans = v[0];
-	for(int i = 0;i<v.size();i++) ans = max(ans,v[i]);
-	return ans;}
-
-//using mint = modint998244353;
-using mint = modint1000000007;
+const long long INF = LLONG_MAX;
 
 int main() {
-	__SPEED_UP__
-	
+    int h, w, t;
+    cin >> h >> w >> t;
+    vector<string> a(h);
+    for (int i = 0; i < h; ++i) {
+        cin >> a[i];
+    }
 
-	
+    vector<pair<int, int>> nodes;
+    int start = -1;
+    int goal = -1;
+    for (int i = 0; i < h; ++i) {
+        for (int j = 0; j < w; ++j) {
+            if (a[i][j] == 'S') {
+                start = nodes.size();
+                nodes.push_back({i, j});
+            } else if (a[i][j] == 'G') {
+                goal = nodes.size();
+                nodes.push_back({i, j});
+            } else if (a[i][j] == 'o') {
+                nodes.push_back({i, j});
+            }
+        }
+    }
+    int n = nodes.size();
+
+    vector<vector<long long>> G(n, vector<long long>(n, INF));
+    for (int i = 0; i < n; ++i) {
+        int x = nodes[i].first;
+        int y = nodes[i].second;
+        vector<vector<int>> dist = bfs(a, x, y);
+        for (int j = 0; j < n; ++j) {
+            int x2 = nodes[j].first;
+            int y2 = nodes[j].second;
+            if (dist[x2][y2] != -1) {
+                G[i][j] = dist[x2][y2];
+            }
+        }
+    }
+
+    vector<vector<long long>> dp(1 << n, vector<long long>(n, INF));
+    dp[1 << start][start] = 0;
+	for (int bit = 1; bit < (1 << n); ++bit) {
+        for (int v = 0; v < n; ++v) {
+            for (int v2 = 0; v2 < n; ++v2) {
+                int nbit = bit | (1 << v2);
+                dp[nbit][v2] = min(dp[nbit][v2], dp[bit][v] + G[v][v2]);
+            }
+        }
+    }
+
+    int res = -1;
+    for (int bit = 1; bit < (1 << n); ++bit) {
+        if (dp[bit][goal] <= t) {
+            res = max(res, bit_count(bit) - 2);
+        }
+    }
+    cout << res << endl;
+
+    return 0;
 }
