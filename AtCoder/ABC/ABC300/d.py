@@ -17,9 +17,3 @@ def get_sieve_of_eratosthenes(n):
 sosuu = get_sieve_of_eratosthenes(3*10**5)
 n = int(input())
 
-res = 0 
-for i in range(len(sosuu)):
-    for j in range(i+1,len(sosuu)):
-        
-    
-print(res)
